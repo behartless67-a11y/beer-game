@@ -3,17 +3,15 @@ nixPkgs = ['nodejs_20']
 
 [phases.install]
 cmds = [
-  'npm ci --legacy-peer-deps || npm install --legacy-peer-deps',
-  'cd client && npm ci --legacy-peer-deps || npm install --legacy-peer-deps',
-  'cd ../server && npm ci --legacy-peer-deps || npm install --legacy-peer-deps',
-  'cd ..'
+  'npm install',
+  'cd client && npm install && cd ..',
+  'cd server && npm install && cd ..'
 ]
 
 [phases.build]
 cmds = [
-  'cd client && npm run build && cd ..',
-  'cd server && npm run build && cd ..'
+  'npm run build'
 ]
 
 [start]
-cmd = 'NODE_ENV=production node server/dist/server.js'
+cmd = 'npm run start:production'
