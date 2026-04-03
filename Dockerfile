@@ -16,25 +16,14 @@ FROM base AS build
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
-# Install root dependencies
-COPY package-lock.json package.json ./
-RUN npm install
-
-# Copy application code
+# Copy all application code first
 COPY . .
 
 # Install and build client
-WORKDIR /app/client
-RUN npm install
-RUN npm run build
+RUN cd client && npm install && npm run build
 
 # Install and build server
-WORKDIR /app/server
-RUN npm install
-RUN npm run build
-
-# Back to root
-WORKDIR /app
+RUN cd server && npm install && npm run build
 
 # Final stage for app image
 FROM base
@@ -43,10 +32,10 @@ FROM base
 ENV NODE_ENV="production"
 
 # Copy built application
-COPY --from=build /app/client/dist /app/client/dist
-COPY --from=build /app/server/dist /app/server/dist
-COPY --from=build /app/server/node_modules /app/server/node_modules
-COPY --from=build /app/server/package.json /app/server/package.json
+COPY --from=build /app/client/dist ./client/dist
+COPY --from=build /app/server/dist ./server/dist
+COPY --from=build /app/server/node_modules ./server/node_modules
+COPY --from=build /app/server/package.json ./server/package.json
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
