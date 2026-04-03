@@ -1,1 +1,1 @@
-web: cd server && node dist/server.js
+web: NODE_ENV=production node server/dist/server.js
