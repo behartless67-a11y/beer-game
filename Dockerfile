@@ -31,11 +31,17 @@ FROM base
 # Set production environment
 ENV NODE_ENV="production"
 
-# Copy built application
+# Copy server package files first
+COPY --from=build /app/server/package*.json ./server/
+
+# Install production dependencies
+WORKDIR /app/server
+RUN npm install --omit=dev
+
+# Copy built files
+WORKDIR /app
 COPY --from=build /app/client/dist ./client/dist
 COPY --from=build /app/server/dist ./server/dist
-COPY --from=build /app/server/node_modules ./server/node_modules
-COPY --from=build /app/server/package.json ./server/package.json
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
