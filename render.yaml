@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: beer-game
+    env: node
+    buildCommand: npm install && cd client && npm install && npm run build && cd ../server && npm install && npm run build
+    startCommand: NODE_ENV=production node server/dist/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production

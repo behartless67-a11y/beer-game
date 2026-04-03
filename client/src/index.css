@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: 'IM Fell English', serif;
+  background-color: #2F2416;
+  color: #F4E8D0;
+}
+
+/* Myst-style global effects */
+.myst-container {
+  background-blend-mode: multiply;
+  filter: sepia(0.15) contrast(1.05);
+}
+
+.brass-panel {
+  background: linear-gradient(135deg, #8B7355 0%, #6B5638 100%);
+  border: 3px solid #4A3728;
+  border-radius: 8px;
+  box-shadow:
+    inset 0 2px 4px rgba(255,255,255,0.2),
+    0 4px 8px rgba(0,0,0,0.4);
+}
+
+.aged-paper {
+  background-color: #F4E8D0;
+  color: #2F2416;
+  box-shadow: inset 0 0 80px rgba(0,0,0,0.1);
+}
+
+.vintage-text {
+  font-family: 'IM Fell English', serif;
+  letter-spacing: 0.05em;
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
