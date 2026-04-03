@@ -1,37 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server/src/server.ts",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["server/**", "client/dist/**"]
-      }
-    },
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/socket.io/(.*)",
-      "dest": "server/src/server.ts"
-    },
-    {
-      "src": "/health",
-      "dest": "server/src/server.ts"
-    },
-    {
-      "src": "/rooms",
-      "dest": "server/src/server.ts"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "client/dist/$1"
-    }
-  ]
+  "buildCommand": "npm install && cd client && npm install && npm run build && cd ../server && npm install && npm run build",
+  "installCommand": "npm install",
+  "framework": null,
+  "outputDirectory": "client/dist"
 }
