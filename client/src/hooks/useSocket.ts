@@ -4,7 +4,7 @@ import type { ServerToClientEvents, ClientToServerEvents } from '../types/game.t
 
 type TypedSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || window.location.origin;
 
 let socket: TypedSocket | null = null;
 
