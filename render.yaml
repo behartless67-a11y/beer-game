@@ -2,11 +2,9 @@ services:
   - type: web
     name: beer-game
     runtime: node
-    buildCommand: npm install && cd client && npm install && npm run build && cd ../server && npm install && npm run build && cd ..
-    startCommand: NODE_ENV=production node server/dist/server.js
+    buildCommand: npm run build
+    startCommand: npm run start:production
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        sync: false
